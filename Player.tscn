@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://cmlt1v6xny37v"]
+
+[ext_resource type="Texture2D" uid="uid://b7oh7p3uaycht" path="res://icon.png" id="1_p0vlq"]
+[ext_resource type="Script" uid="uid://5s5w6fvt1wwq" path="res://scenes/player.gd" id="1_v6fml"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kne1u"]
+height = 23.999998
+
+[sub_resource type="Gradient" id="Gradient_kpjcp"]
+offsets = PackedFloat32Array(0.0028818443, 0.014409222, 0.91642654, 1)
+colors = PackedColorArray(0.54178673, 0.54178673, 0.54178673, 1, 0.91789246, 0.91789246, 0.91789246, 1, 1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_kne1u"]
+gradient = SubResource("Gradient_kpjcp")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[node name="Node2D" type="CharacterBody2D"]
+script = ExtResource("1_v6fml")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_p0vlq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(2.5, 2.5)
+shape = SubResource("CapsuleShape2D_kne1u")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_kne1u")
+texture_scale = 1.5
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 1.4899999999999998
+one_shot = true
+autostart = true

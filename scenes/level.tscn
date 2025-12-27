@@ -1,0 +1,58 @@
+[gd_scene load_steps=5 format=3 uid="uid://ddvy860ds4xdv"]
+
+[ext_resource type="Texture2D" uid="uid://byn6hiutn57e4" path="res://bg.jpeg" id="1_w7c3h"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2q6dc"]
+size = Vector2(1212, 38)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w7c3h"]
+size = Vector2(100.5, 42)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w8frs"]
+size = Vector2(40, 660)
+
+[node name="Level" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(601, 335)
+scale = Vector2(4, 4)
+texture = ExtResource("1_w7c3h")
+
+[node name="Sol" type="StaticBody2D" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="Sol"]
+offset_left = 2.0
+offset_top = 627.0
+offset_right = 1207.0
+offset_bottom = 668.0
+color = Color(0, 0, 0, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sol"]
+position = Vector2(608, 646)
+shape = SubResource("RectangleShape2D_2q6dc")
+
+[node name="Wall1" type="StaticBody2D" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="Wall1"]
+offset_left = 116.0
+offset_top = 520.0
+offset_right = 217.0
+offset_bottom = 561.0
+color = Color(0.0142752165, 0.014275218, 0.014275218, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall1"]
+position = Vector2(166.75, 541)
+shape = SubResource("RectangleShape2D_w7c3h")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="StaticBody2D2"]
+offset_left = -38.0
+offset_top = -19.0
+offset_right = 2.0
+offset_bottom = 650.0
+color = Color(0, 0, 0, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+position = Vector2(-19, 316)
+shape = SubResource("RectangleShape2D_w8frs")
