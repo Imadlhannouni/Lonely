@@ -1,101 +1,54 @@
 [gd_scene load_steps=5 format=3 uid="uid://dwcwaornvynca"]
 
-[ext_resource type="PackedScene" uid="uid://ddvy860ds4xdv" path="res://scenes/level.tscn" id="1_0wfyh"]
-[ext_resource type="PackedScene" uid="uid://cmlt1v6xny37v" path="res://Player.tscn" id="2_sugp2"]
-
-[sub_resource type="Gradient" id="Gradient_kpjcp"]
-offsets = PackedFloat32Array(0, 0.0028818443, 0.010666667, 0.014409222, 0.91642654)
-colors = PackedColorArray(0.9983834, 0.9983834, 0.9983834, 1, 0.54178673, 0.54178673, 0.54178673, 1, 0, 0, 0, 1, 0.91789246, 0.91789246, 0.91789246, 1, 1, 1, 1, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_0wfyh"]
-gradient = SubResource("Gradient_kpjcp")
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-fill_to = Vector2(1, 1)
+[ext_resource type="Texture2D" uid="uid://ck0ffdk5m1xdv" path="res://téléchargement.png" id="1_jyhfs"]
+[ext_resource type="PackedScene" uid="uid://iraige15oddq" path="res://Level.tscn" id="2_0wfyh"]
+[ext_resource type="PackedScene" uid="uid://cmlt1v6xny37v" path="res://player.tscn" id="2_sugp2"]
+[ext_resource type="Texture2D" uid="uid://byn6hiutn57e4" path="res://bg.jpeg" id="3_sugp2"]
 
 [node name="Node2D" type="Node2D"]
 
-[node name="Level" parent="." instance=ExtResource("1_0wfyh")]
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(470.49976, 393.5001)
+scale = Vector2(21.824675, 19.66892)
+texture = ExtResource("1_jyhfs")
 
-[node name="Node2D" parent="." instance=ExtResource("2_sugp2")]
+[node name="Node2D" parent="." instance=ExtResource("2_0wfyh")]
+position = Vector2(1, 0)
 
-[node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color(0, 0, 0, 1)
+[node name="Node2D2" parent="Node2D" instance=ExtResource("2_sugp2")]
+position = Vector2(52, 176)
 
-[node name="PointLight2D9" type="PointLight2D" parent="." groups=["path_lights"]]
-position = Vector2(894, 593)
-shadow_enabled = true
-texture = SubResource("GradientTexture2D_0wfyh")
-texture_scale = 1.5
+[node name="PointLight2D2" type="PointLight2D" parent="Node2D" groups=["path_lights"]]
+position = Vector2(141.99998, 150.99998)
+scale = Vector2(0.95333326, 1.8333333)
+texture = ExtResource("3_sugp2")
 
-[node name="PointLight2D11" type="PointLight2D" parent="." groups=["path_lights"]]
-position = Vector2(1084, 593)
-shadow_enabled = true
-texture = SubResource("GradientTexture2D_0wfyh")
-texture_scale = 1.5
+[node name="PointLight2D3" type="PointLight2D" parent="Node2D" groups=["path_lights"]]
+position = Vector2(407.99997, 151.5)
+scale = Vector2(0.8266667, 1.8273808)
+texture = ExtResource("3_sugp2")
 
-[node name="PointLight2D12" type="PointLight2D" parent="." groups=["path_lights"]]
-position = Vector2(1179, 593)
-shadow_enabled = true
-texture = SubResource("GradientTexture2D_0wfyh")
-texture_scale = 1.5
+[node name="PointLight2D5" type="PointLight2D" parent="Node2D" groups=["path_lights"]]
+position = Vector2(672.00006, 151.22096)
+scale = Vector2(0.9400004, 1.8307027)
+texture = ExtResource("3_sugp2")
 
-[node name="PointLight2D10" type="PointLight2D" parent="." groups=["path_lights"]]
-position = Vector2(989, 593)
-shadow_enabled = true
-texture = SubResource("GradientTexture2D_0wfyh")
-texture_scale = 1.5
+[node name="PointLight2D6" type="PointLight2D" parent="Node2D" groups=["path_lights"]]
+position = Vector2(980.99994, 150.86049)
+scale = Vector2(1.1266667, 1.8230896)
+texture = ExtResource("3_sugp2")
 
-[node name="PointLight2D8" type="PointLight2D" parent="." groups=["path_lights"]]
-position = Vector2(799, 593)
-shadow_enabled = true
-texture = SubResource("GradientTexture2D_0wfyh")
-texture_scale = 1.5
+[node name="PointLight2D7" type="PointLight2D" parent="Node2D" groups=["path_lights"]]
+position = Vector2(980, 474.43024)
+scale = Vector2(1.1266667, 2.042497)
+texture = ExtResource("3_sugp2")
 
-[node name="PointLight2D7" type="PointLight2D" parent="." groups=["path_lights"]]
-position = Vector2(704, 593)
-shadow_enabled = true
-texture = SubResource("GradientTexture2D_0wfyh")
-texture_scale = 1.5
+[node name="PointLight2D8" type="PointLight2D" parent="Node2D" groups=["path_lights"]]
+position = Vector2(643.99994, 474.99997)
+scale = Vector2(1.1266667, 2.042497)
+texture = ExtResource("3_sugp2")
 
-[node name="PointLight2D6" type="PointLight2D" parent="." groups=["path_lights"]]
-position = Vector2(609, 593)
-shadow_enabled = true
-texture = SubResource("GradientTexture2D_0wfyh")
-texture_scale = 1.5
-
-[node name="PointLight2D5" type="PointLight2D" parent="." groups=["path_lights"]]
-position = Vector2(514, 593)
-shadow_enabled = true
-texture = SubResource("GradientTexture2D_0wfyh")
-texture_scale = 1.5
-
-[node name="PointLight2D3" type="PointLight2D" parent="." groups=["path_lights"]]
-position = Vector2(419, 593)
-shadow_enabled = true
-texture = SubResource("GradientTexture2D_0wfyh")
-texture_scale = 1.5
-
-[node name="PointLight2D4" type="PointLight2D" parent="." groups=["path_lights"]]
-position = Vector2(134, 593)
-shadow_enabled = true
-texture = SubResource("GradientTexture2D_0wfyh")
-texture_scale = 1.5
-
-[node name="PointLight2D13" type="PointLight2D" parent="." groups=["path_lights"]]
-position = Vector2(324, 593)
-shadow_enabled = true
-texture = SubResource("GradientTexture2D_0wfyh")
-texture_scale = 1.5
-
-[node name="PointLight2D2" type="PointLight2D" parent="." groups=["path_lights"]]
-position = Vector2(229, 593)
-shadow_enabled = true
-texture = SubResource("GradientTexture2D_0wfyh")
-texture_scale = 1.5
-
-[node name="PointLight2D" type="PointLight2D" parent="." groups=["path_lights"]]
-position = Vector2(39, 593)
-shadow_enabled = true
-texture = SubResource("GradientTexture2D_0wfyh")
-texture_scale = 1.5
+[node name="PointLight2D9" type="PointLight2D" parent="Node2D" groups=["path_lights"]]
+position = Vector2(236.99995, 476)
+scale = Vector2(1.593333, 2.042497)
+texture = ExtResource("3_sugp2")

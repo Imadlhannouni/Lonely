@@ -4,6 +4,7 @@ extends CanvasLayer
 @onready var settings_button: Button = null
 @onready var return_menu_button: Button = null
 @onready var exit_button: Button = null
+@onready var restart_button: Button = null
 
 func _ready() -> void:
 	layer = 100  # Au-dessus de tout
@@ -37,7 +38,7 @@ func _ready() -> void:
 	
 	# Bouton Continuer
 	continue_button = Button.new()
-	continue_button.text = "Continuer"
+	continue_button.text = "Continue"
 	continue_button.custom_minimum_size = Vector2(200, 50)
 	continue_button.pressed.connect(_on_continue_pressed)
 	container.add_child(continue_button)
@@ -46,18 +47,6 @@ func _ready() -> void:
 	var spacer2 = Control.new()
 	spacer2.custom_minimum_size = Vector2(0, 20)
 	container.add_child(spacer2)
-	
-	# Bouton Settings
-	settings_button = Button.new()
-	settings_button.text = "Settings"
-	settings_button.custom_minimum_size = Vector2(200, 50)
-	settings_button.pressed.connect(_on_settings_pressed)
-	container.add_child(settings_button)
-	
-	# Espacement
-	var spacer3 = Control.new()
-	spacer3.custom_minimum_size = Vector2(0, 20)
-	container.add_child(spacer3)
 	
 	# Bouton Return to Main Menu
 	return_menu_button = Button.new()
@@ -70,7 +59,19 @@ func _ready() -> void:
 	var spacer4 = Control.new()
 	spacer4.custom_minimum_size = Vector2(0, 20)
 	container.add_child(spacer4)
-	
+
+	# Bouton Restart
+	restart_button = Button.new()
+	restart_button.text = "Restart"
+	restart_button.custom_minimum_size = Vector2(200, 50)
+	restart_button.pressed.connect(_on_restart_pressed)
+	container.add_child(restart_button)
+
+	# Espacement
+	var spacer5 = Control.new()
+	spacer5.custom_minimum_size = Vector2(0, 20)
+	container.add_child(spacer5)
+
 	# Bouton Exit
 	exit_button = Button.new()
 	exit_button.text = "Exit"
@@ -83,14 +84,32 @@ func _on_continue_pressed() -> void:
 	get_tree().paused = false
 	queue_free()
 
-func _on_settings_pressed() -> void:
-	print("Settings - À implémenter plus tard")
-
 func _on_return_menu_pressed() -> void:
 	# Reprendre le jeu et fermer le menu pause avant de retourner au menu principal
 	get_tree().paused = false
 	queue_free()
+	for node in get_tree().root.get_children():
+		if node is CanvasLayer:
+			for child in node.get_children():
+				if child is Label and child.text == "You need to find the door to escape":
+					node.queue_free()
+					break
+
 	get_tree().change_scene_to_file("res://scenes/menu.tscn")
+
+
+func _on_restart_pressed() -> void:
+	# Reprendre et relancer la scène courante (remettre le jeu à zéro)
+	get_tree().paused = false
+	queue_free()
+
+	# Réinitialiser les statics du joueur (s'il y en a) via la fonction exposée
+	var player_script = load("res://scenes/player.gd")
+	if player_script and player_script.has_method("reset_statics"):
+		player_script.reset_statics()
+
+	# Recharger la scène courante
+	get_tree().reload_current_scene()
 
 func _on_exit_pressed() -> void:
 	# Quitter le jeu

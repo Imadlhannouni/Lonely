@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://ddvy860ds4xdv"]
+[gd_scene load_steps=6 format=3 uid="uid://ddvy860ds4xdv"]
 
 [ext_resource type="Texture2D" uid="uid://byn6hiutn57e4" path="res://bg.jpeg" id="1_w7c3h"]
+[ext_resource type="Texture2D" uid="uid://ck0ffdk5m1xdv" path="res://téléchargement.png" id="2_w7c3h"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2q6dc"]
 size = Vector2(1212, 38)
@@ -12,6 +13,11 @@ size = Vector2(100.5, 42)
 size = Vector2(40, 660)
 
 [node name="Level" type="Node2D"]
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(775.99994, 332.00006)
+scale = Vector2(35.18182, 21.45946)
+texture = ExtResource("2_w7c3h")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(601, 335)

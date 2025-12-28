@@ -1,0 +1,58 @@
+[gd_scene load_steps=9 format=3 uid="uid://cfdg7j6s17pms"]
+
+[ext_resource type="Texture2D" uid="uid://djv6l8tig4rr8" path="res://images/traps.png" id="1_kd1db"]
+[ext_resource type="Script" path="res://deathzone.gd" id="2_deathzone"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w2pp3"]
+atlas = ExtResource("1_kd1db")
+region = Rect2(0, 0, 32, 29)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gix62"]
+atlas = ExtResource("1_kd1db")
+region = Rect2(32, 0, 32, 29)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bmoth"]
+atlas = ExtResource("1_kd1db")
+region = Rect2(64, 0, 32, 29)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3wwhq"]
+atlas = ExtResource("1_kd1db")
+region = Rect2(96, 0, 32, 29)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_74bs6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w2pp3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gix62")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bmoth")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3wwhq")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_evhql"]
+size = Vector2(18.5, 12.125)
+
+[node name="trap" type="Area2D"]
+position = Vector2(182, 123)
+script = ExtResource("2_deathzone")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-2.2649765e-06, -0.500002)
+scale = Vector2(1.8750002, 1.7586207)
+sprite_frames = SubResource("SpriteFrames_74bs6")
+autoplay = "default"
+frame = 3
+frame_progress = 0.9044308
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_evhql")

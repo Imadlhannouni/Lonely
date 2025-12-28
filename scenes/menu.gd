@@ -1,112 +1,105 @@
 extends Control
 
-# Chemin vers la scène de jeu principale
-var game_scene_path = "res://scenes/main.tscn"  # Ajuste selon le nom de ta scène de jeu
-
-@onready var start_button: Button = null
-@onready var settings_button: Button = null
-@onready var exit_button: Button = null
-
 func _ready() -> void:
-	# Fond clair élégant avec dégradé
-	var bg = ColorRect.new()
-	bg.color = Color(0.75, 0.76, 0.78, 1.0)  # Gris doux
-	bg.set_anchors_preset(Control.PRESET_FULL_RECT)
-	add_child(bg)
+	setup_background()
 	
-	# Créer le conteneur principal centré
-	var container = VBoxContainer.new()
-	container.add_theme_constant_override("separation", 15)
-	add_child(container)
-	
-	# Centrer automatiquement le conteneur
-	container.anchor_left = 0.5
-	container.anchor_right = 0.5
-	container.anchor_top = 0.5
-	container.anchor_bottom = 0.5
-	container.offset_left = -250  # moitié de la largeur des boutons
-	container.offset_top = -250   # moitié de la hauteur approximative du conteneur
-	container.offset_right = 250
-	container.offset_bottom = 250
-	
-	# Logo du jeu
-	var logo = TextureRect.new()
-	logo.texture = load("res://icons/Logo.png")
-	logo.expand_mode = TextureRect.EXPAND_FIT_WIDTH_PROPORTIONAL
-	logo.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	logo.custom_minimum_size = Vector2(450, 180)
-	container.add_child(logo)
-	
-	# Espacement
-	var spacer1 = Control.new()
-	spacer1.custom_minimum_size = Vector2(0, 60)
-	container.add_child(spacer1)
-	
-	# Bouton Lancer
-	start_button = create_styled_button("▶ Lancer", Color(0.15, 0.15, 0.15))  # Noir/gris foncé
-	start_button.pressed.connect(_on_start_pressed)
-	container.add_child(start_button)
-	
-	# Bouton Settings
-	settings_button = create_styled_button("⚙ Settings", Color(0.25, 0.25, 0.25))  # Gris foncé
-	settings_button.pressed.connect(_on_settings_pressed)
-	container.add_child(settings_button)
-	
-	# Bouton Exit
-	exit_button = create_styled_button("✕ Exit", Color(0.35, 0.35, 0.35))  # Gris moyen
-	exit_button.pressed.connect(_on_exit_pressed)
-	container.add_child(exit_button)
+	var center := CenterContainer.new()
+	center.set_anchors_preset(Control.PRESET_FULL_RECT)
+	add_child(center)
 
-func create_styled_button(text: String, base_color: Color) -> Button:
-	var button = Button.new()
-	button.text = text
-	button.custom_minimum_size = Vector2(450, 55)
+	var vbox := VBoxContainer.new()
+	vbox.add_theme_constant_override("separation", 30)
+	center.add_child(vbox)
+
+	# Logo
+	var logo := TextureRect.new()
+	logo.texture = load("res://icons/Logo.png")
+	logo.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	logo.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	logo.custom_minimum_size = Vector2(500, 250)
+	vbox.add_child(logo)
+
+	# Création des boutons avec couleurs d'accentuation
+	var start_btn = create_premium_button("START", Color(0.0, 0.0, 0.0, 1.0))
+	var exit_btn = create_premium_button("EXIT", Color(0.0, 0.0, 0.0, 1.0))
 	
-	# Style du bouton
-	var style_normal = StyleBoxFlat.new()
-	style_normal.bg_color = base_color
-	style_normal.corner_radius_top_left = 12
-	style_normal.corner_radius_top_right = 12
-	style_normal.corner_radius_bottom_left = 12
-	style_normal.corner_radius_bottom_right = 12
-	style_normal.shadow_color = Color(0, 0, 0, 0.2)
-	style_normal.shadow_size = 8
-	style_normal.shadow_offset = Vector2(0, 4)
+	vbox.add_child(start_btn)
+	vbox.add_child(exit_btn)
+
+	# Connexions
+	start_btn.pressed.connect(_on_start_pressed)
+	exit_btn.pressed.connect(_on_exit_pressed)
+
+func setup_background() -> void:
+	# Musique
+	var audio = AudioStreamPlayer.new()
+	audio.stream = load("res://audio/dark-ambiant.mp3")
+	audio.autoplay = true
+	add_child(audio)
 	
-	var style_hover = StyleBoxFlat.new()
-	style_hover.bg_color = base_color.lightened(0.15)
-	style_hover.corner_radius_top_left = 12
-	style_hover.corner_radius_top_right = 12
-	style_hover.corner_radius_bottom_left = 12
-	style_hover.corner_radius_bottom_right = 12
-	style_hover.shadow_color = Color(0, 0, 0, 0.3)
-	style_hover.shadow_size = 12
-	style_hover.shadow_offset = Vector2(0, 6)
+	# Image de fond
+	var bg = TextureRect.new()
+	bg.texture = load("res://bg.png")
+	bg.set_anchors_preset(Control.PRESET_FULL_RECT)
+	bg.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
+	bg.modulate = Color(0.4, 0.4, 0.4) # Assombrit l'image de fond
+	add_child(bg)
+
+func create_premium_button(txt: String, accent_color: Color) -> Button:
+	var btn := Button.new()
+	btn.text = txt
+	btn.custom_minimum_size = Vector2(350, 75)
+	btn.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+	btn.pivot_offset = Vector2(175, 37.5) # Centre exact (350/2, 75/2)
 	
-	var style_pressed = StyleBoxFlat.new()
-	style_pressed.bg_color = Color(0.05, 0.05, 0.05)  # Noir profond
-	style_pressed.corner_radius_top_left = 12
-	style_pressed.corner_radius_top_right = 12
-	style_pressed.corner_radius_bottom_left = 12
-	style_pressed.corner_radius_bottom_right = 12
-	style_pressed.shadow_color = Color(0, 0, 0, 0.15)
-	style_pressed.shadow_size = 4
-	style_pressed.shadow_offset = Vector2(0, 2)
+	# Style Normal
+	var sb_normal = StyleBoxFlat.new()
+	sb_normal.bg_color = Color(0.1, 0.1, 0.12, 0.9)
+	sb_normal.set_corner_radius_all(10)
+	sb_normal.border_width_left = 5 # Barre latérale stylisée
+	sb_normal.border_color = accent_color
+	sb_normal.shadow_color = Color(0, 0, 0, 0.5)
+	sb_normal.shadow_size = 12
+	sb_normal.shadow_offset = Vector2(0, 4)
 	
-	button.add_theme_stylebox_override("normal", style_normal)
-	button.add_theme_stylebox_override("hover", style_hover)
-	button.add_theme_stylebox_override("pressed", style_pressed)
-	button.add_theme_font_size_override("font_size", 24)
-	button.add_theme_color_override("font_color", Color.WHITE)
+	# Style Hover (Survol)
+	var sb_hover = sb_normal.duplicate()
+	sb_hover.bg_color = Color(0.15, 0.15, 0.18)
+	sb_hover.border_color = accent_color.lightened(0.4)
+	sb_hover.shadow_size = 20
 	
-	return button
+	# Style Pressed
+	var sb_pressed = sb_normal.duplicate()
+	sb_pressed.bg_color = Color(0.05, 0.05, 0.05)
+	sb_pressed.border_width_left = 10 # Accentuation visuelle du clic
+	
+	# Application des thèmes
+	btn.add_theme_stylebox_override("normal", sb_normal)
+	btn.add_theme_stylebox_override("hover", sb_hover)
+	btn.add_theme_stylebox_override("pressed", sb_pressed)
+	btn.add_theme_stylebox_override("focus", StyleBoxEmpty.new())
+	
+	btn.add_theme_font_size_override("font_size", 28)
+	btn.add_theme_color_override("font_hover_color", Color.WHITE)
+	btn.add_theme_color_override("font_pressed_color", accent_color)
+
+	# --- LOGIQUE D'ANIMATION ---
+	btn.mouse_entered.connect(func():
+		var t = create_tween().set_parallel(true)
+		t.tween_property(btn, "scale", Vector2(1.08, 1.08), 0.25).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+		t.tween_property(btn, "modulate", Color(1.3, 1.3, 1.3), 0.2)
+	)
+	
+	btn.mouse_exited.connect(func():
+		var t = create_tween().set_parallel(true)
+		t.tween_property(btn, "scale", Vector2(1.0, 1.0), 0.2).set_trans(Tween.TRANS_SINE)
+		t.tween_property(btn, "modulate", Color.WHITE, 0.2)
+	)
+	
+	return btn
 
 func _on_start_pressed() -> void:
-	# Charger la scène de jeu
-	get_tree().change_scene_to_file(game_scene_path)
-
-func _on_settings_pressed() -> void:
-	print("Settings - À implémenter plus tard")
+	get_tree().change_scene_to_file("res://scenes/main.tscn")
 
 func _on_exit_pressed() -> void:
 	get_tree().quit()
